@@ -7,7 +7,7 @@ public class Listeners {
 
   @Listener
   public void onClientConnectionJoin(ClientConnectionEvent.Join event) {
-    event.getTargetEntity().setScoreboard(Main.getStatusScoreboard.getScoreboard);
+    event.getTargetEntity().setScoreboard(Main.getInstance().getStatusScoreboard().getScoreboard());
   }
 
   @Listener

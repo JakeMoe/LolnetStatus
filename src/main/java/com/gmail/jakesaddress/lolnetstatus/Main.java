@@ -3,8 +3,11 @@ package com.gmail.jakesaddress.lolnetstatus;
 
 import com.google.inject.Inject;
 import org.slf4j.Logger;
+import org.spongepowered.api.Sponge;
 import org.spongepowered.api.event.Listener;
 import org.spongepowered.api.event.game.state.GameConstructionEvent;
+import org.spongepowered.api.event.game.state.GameInitializationEvent;
+import org.spongepowered.api.event.game.state.GamePreInitializationEvent;
 import org.spongepowered.api.plugin.Plugin;
 
 @Plugin(authors = "Cluracan",
@@ -27,6 +30,16 @@ public class Main {
   public void onGameConstruction(GameConstructionEvent event) {
     instance = this;
     logger.info(project + " " + version + " starting");
+  }
+
+  @Listener
+  public void onGamePreInitialization(GamePreInitializationEvent event) {
+    statusScoreboard = new StatusScoreboard();
+  }
+
+  @Listener
+  public void onGameInitialization(GameInitializationEvent event) {
+    Sponge.getEventManager().registerListeners(this, new Listeners());
   }
 
   static Main getInstance() {

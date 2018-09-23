@@ -25,9 +25,9 @@ public class StatusScoreboard {
       return;
     }
 
-    Objective objective = Objective.builder()
+    objective = Objective.builder()
       .criterion(Criteria.DUMMY)
-      .displayName(Text.of(TextColors.GOLD("Server Status")))
+      .displayName(Text.of(TextColors.GOLD + "Server Status"))
       .name("ServerStatus")
       .objectiveDisplayMode(ObjectiveDisplayModes.INTEGER)
       .build();
@@ -41,6 +41,7 @@ public class StatusScoreboard {
 
   public void updateServerStatus(String server) {
     String status = "Unimplemented"; // Get the server's status.... somehow
+    objective.getOrCreateScore(Text.of(server)).setScore(0);
     serverStatus.setStatus(server, status);
   }
 
