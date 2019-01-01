@@ -11,6 +11,7 @@ import org.spongepowered.api.text.format.TextColors;
 
 public class StatusScoreboard {
 
+  private static final String statusObjectiveName = "ServerStatus";
   private ServerStatus serverStatus;
   private Scoreboard scoreboard;
   private Objective objective;
@@ -25,14 +26,17 @@ public class StatusScoreboard {
       return;
     }
 
-    objective = Objective.builder()
-      .criterion(Criteria.DUMMY)
-      .displayName(Text.of(TextColors.GOLD + "Server Status"))
-      .name("ServerStatus")
-      .objectiveDisplayMode(ObjectiveDisplayModes.INTEGER)
-      .build();
+    objective = scoreboard.getObjective(statusObjectiveName).orElse(null);
+    if (objective == null) {
+      objective = Objective.builder()
+        .criterion(Criteria.DUMMY)
+        .displayName(Text.of(TextColors.GOLD, "Lolnet Server Status"))
+        .name(statusObjectiveName)
+        .objectiveDisplayMode(ObjectiveDisplayModes.INTEGER)
+        .build();
+      scoreboard.addObjective(objective);
+    }
 
-    scoreboard.addObjective(objective);
     scoreboard.updateDisplaySlot(objective, DisplaySlots.SIDEBAR);
 
     updateServerStatusAll();
@@ -42,12 +46,14 @@ public class StatusScoreboard {
   public void updateServerStatus(String server) {
     String status = "Unimplemented"; // Get the server's status.... somehow
     objective.getOrCreateScore(Text.of(server)).setScore(0);
+    Main.getInstance().getLogger().info("Setting Server " + server + " to " + status);
     serverStatus.setStatus(server, status);
   }
 
   public void updateServerStatusAll() {
     String[] serverList = new String[] {"one", "two"};
     for (String server : serverList) {
+      Main.getInstance().getLogger().info("Updating Server Status for " + server);
       updateServerStatus(server);
     }
   }

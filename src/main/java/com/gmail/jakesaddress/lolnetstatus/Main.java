@@ -1,6 +1,5 @@
 package com.gmail.jakesaddress.lolnetstatus;
 
-
 import com.google.inject.Inject;
 import org.slf4j.Logger;
 import org.spongepowered.api.Sponge;
@@ -8,17 +7,18 @@ import org.spongepowered.api.event.Listener;
 import org.spongepowered.api.event.game.state.GameConstructionEvent;
 import org.spongepowered.api.event.game.state.GameInitializationEvent;
 import org.spongepowered.api.event.game.state.GamePreInitializationEvent;
+import org.spongepowered.api.event.game.state.GameStartedServerEvent;
 import org.spongepowered.api.plugin.Plugin;
 
 @Plugin(authors = "Cluracan",
         description = "Server status scoreboard plugin",
         id = "lolnetstatus",
         name = "Lolnet Status",
-        version = "0.1")
+        version = "0.2")
 public class Main {
 
   private static final String project = "LolnetStatus";
-  private static final String version = "0.1";
+  private static final String version = "0.2";
 
   private static Main instance;
   private StatusScoreboard statusScoreboard;
@@ -34,12 +34,19 @@ public class Main {
 
   @Listener
   public void onGamePreInitialization(GamePreInitializationEvent event) {
-    statusScoreboard = new StatusScoreboard();
+    logger.info("Server available: " + Sponge.isServerAvailable());
   }
 
   @Listener
   public void onGameInitialization(GameInitializationEvent event) {
     Sponge.getEventManager().registerListeners(this, new Listeners());
+    logger.info("Registered listeners");
+  }
+
+  @Listener
+  public void onServerStarted(GameStartedServerEvent event) {
+    statusScoreboard = new StatusScoreboard();
+    logger.info("Created and assigned StatusScoreboard");
   }
 
   static Main getInstance() {
