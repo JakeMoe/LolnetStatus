@@ -17,11 +17,11 @@ import java.util.concurrent.ConcurrentHashMap;
         description = "Server status scoreboard plugin",
         id = "lolnetstatus",
         name = "Lolnet Status",
-        version = "0.3")
+        version = "0.4")
 public class Main {
 
   private static final String project = "LolnetStatus";
-  private static final String version = "0.3";
+  private static final String version = "0.4";
 
   private static Main instance;
   private static ConcurrentHashMap<String, String> serverNames;
@@ -74,11 +74,11 @@ public class Main {
     return statusScoreboard;
   }
 
-  void setServerName(String id, String displayName) {
+  static void setServerName(String id, String displayName) {
     serverNames.put(id, displayName);
   }
 
-  void setStatus(String id, String status) {
+  static void setStatus(String id, String status) {
     serverStatuses.put(id, status);
   }
 

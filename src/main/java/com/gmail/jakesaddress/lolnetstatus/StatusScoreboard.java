@@ -44,7 +44,8 @@ class StatusScoreboard {
   void updateAll() {
     objective.getScores().values().forEach(objective::removeScore);
     Main.getServerNames().forEachEntry(1L, (ConcurrentHashMap.Entry<String, String> e) -> {
-      objective.getOrCreateScore(Text.of(e.getValue())).setScore(0);
+      String status = Main.getServerStatuses().get(e.getKey());
+      objective.getOrCreateScore(Text.of(TextColors.GOLD, e.getValue(), TextColors.WHITE, status)).setScore(0);
     });
 
   }
