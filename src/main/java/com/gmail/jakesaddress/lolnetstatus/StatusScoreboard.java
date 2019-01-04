@@ -9,16 +9,15 @@ import org.spongepowered.api.scoreboard.objective.displaymode.ObjectiveDisplayMo
 import org.spongepowered.api.text.Text;
 import org.spongepowered.api.text.format.TextColors;
 
-public class StatusScoreboard {
+import java.util.concurrent.ConcurrentHashMap;
+
+class StatusScoreboard {
 
   private static final String statusObjectiveName = "ServerStatus";
-  private ServerStatus serverStatus;
   private Scoreboard scoreboard;
   private Objective objective;
 
-  public StatusScoreboard() {
-
-    serverStatus = new ServerStatus();
+  StatusScoreboard() {
 
     scoreboard = Sponge.getServer().getServerScoreboard().orElse(null);
     if (scoreboard == null) {
@@ -35,30 +34,22 @@ public class StatusScoreboard {
         .objectiveDisplayMode(ObjectiveDisplayModes.INTEGER)
         .build();
       scoreboard.addObjective(objective);
+      scoreboard.updateDisplaySlot(objective, DisplaySlots.SIDEBAR);
     }
 
-    scoreboard.updateDisplaySlot(objective, DisplaySlots.SIDEBAR);
-
-    updateServerStatusAll();
+    updateAll();
 
   }
 
-  public void updateServerStatus(String server) {
-    String status = "Unimplemented"; // Get the server's status.... somehow
-    objective.getOrCreateScore(Text.of(server)).setScore(0);
-    Main.getInstance().getLogger().info("Setting Server " + server + " to " + status);
-    serverStatus.setStatus(server, status);
+  void updateAll() {
+    objective.getScores().values().forEach(objective::removeScore);
+    Main.getServerNames().forEachEntry(1L, (ConcurrentHashMap.Entry<String, String> e) -> {
+      objective.getOrCreateScore(Text.of(e.getValue())).setScore(0);
+    });
+
   }
 
-  public void updateServerStatusAll() {
-    String[] serverList = new String[] {"one", "two"};
-    for (String server : serverList) {
-      Main.getInstance().getLogger().info("Updating Server Status for " + server);
-      updateServerStatus(server);
-    }
-  }
-
-  public Scoreboard getScoreboard() {
+  Scoreboard getScoreboard() {
     return scoreboard;
   }
 
