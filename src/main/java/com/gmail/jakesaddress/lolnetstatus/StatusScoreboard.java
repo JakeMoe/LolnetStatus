@@ -1,5 +1,6 @@
 package com.gmail.jakesaddress.lolnetstatus;
 
+import nz.co.lolnet.servermanager.api.Platform;
 import org.spongepowered.api.Sponge;
 import org.spongepowered.api.scoreboard.Scoreboard;
 import org.spongepowered.api.scoreboard.critieria.Criteria;
@@ -44,8 +45,8 @@ class StatusScoreboard {
   void updateAll() {
     objective.getScores().values().forEach(objective::removeScore);
     Main.getServerNames().forEachEntry(1L, (ConcurrentHashMap.Entry<String, String> e) -> {
-      String status = Main.getServerStatuses().get(e.getKey());
-      objective.getOrCreateScore(Text.of(TextColors.GOLD, e.getValue(), TextColors.WHITE, status)).setScore(0);
+      String status = Main.getServerStatuses().getOrDefault(e.getKey(), Platform.State.UNKNOWN.getFriendlyName());
+      objective.getOrCreateScore(Text.of(TextColors.GOLD, e.getValue(), TextColors.WHITE, ": ", status)).setScore(0);
     });
 
   }

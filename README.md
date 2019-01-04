@@ -17,3 +17,6 @@ Plugin to show server status in a scoreboard while players are in the lobbies
 * 0.4 - John Moe - 4 Jan 2019
   * Fixed NetworkHander to actually do something with state info
   * Updated scoreboard to include server state, and colourise the text
+* 0.5 - John Moe - 4 Jan 2019
+  * Added space into scoreboard text
+  * Added default "UNKNOWN" status if server hasn't reported yet
