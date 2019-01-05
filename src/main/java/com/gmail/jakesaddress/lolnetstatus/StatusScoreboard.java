@@ -11,8 +11,6 @@ import org.spongepowered.api.text.Text;
 import org.spongepowered.api.text.format.TextColor;
 import org.spongepowered.api.text.format.TextColors;
 
-import java.util.concurrent.ConcurrentHashMap;
-
 class StatusScoreboard {
 
   private static final String statusObjectiveName = "ServerStatus";
@@ -45,30 +43,32 @@ class StatusScoreboard {
 
   void updateAll() {
     objective.getScores().values().forEach(objective::removeScore);
-    Main.getServerNames().forEachEntry(1L, (ConcurrentHashMap.Entry<String, String> e) -> {
+    Main.getServerNames().forEach((key, value) -> {
 
-      Platform.State status = Main.getServerStatuses().getOrDefault(e.getKey(), Platform.State.UNKNOWN);
+      Platform.State status = Main.getServerStatuses().getOrDefault(key, Platform.State.UNKNOWN);
       TextColor statusColor;
 
       switch (status) {
-        case GAME_STOPPED:
-        case GAME_STOPPING:
-        case JVM_STOPPED:
-        case SERVER_STOPPED:
         case SERVER_STOPPING:
+        case SERVER_STOPPED:
+        case GAME_STOPPING:
+        case GAME_STOPPED:
+        case JVM_STOPPED:
           statusColor = TextColors.RED;
           break;
+        case JVM_STARTED:
         case CONSTRUCTION:
-        case INITIALIZATION:
-        case LOAD_COMPLETE:
-        case POST_INITIALIZATION:
         case PRE_INITIALIZATION:
+        case INITIALIZATION:
+        case POST_INITIALIZATION:
+          statusColor = TextColors.GOLD;
+          break;
+        case LOAD_COMPLETE:
         case SERVER_ABOUT_TO_START:
-        case SERVER_STARTED:
         case SERVER_STARTING:
           statusColor = TextColors.YELLOW;
           break;
-        case JVM_STARTED:
+        case SERVER_STARTED:
           statusColor = TextColors.GREEN;
           break;
         case UNKNOWN:
@@ -77,7 +77,8 @@ class StatusScoreboard {
           break;
       }
 
-      objective.getOrCreateScore(Text.of(TextColors.GOLD, e.getValue(), statusColor, ": ", status.getFriendlyName())).setScore(0);
+      objective.getOrCreateScore(Text.of(TextColors.GOLD, value, statusColor, ": ", status.getFriendlyName())).setScore(0);
+
     });
 
   }

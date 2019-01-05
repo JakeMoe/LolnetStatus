@@ -23,4 +23,6 @@ Plugin to show server status in a scoreboard while players are in the lobbies
 * 0.6 - John Moe - 5 Jan 2019
   * Filtered out lobbies from server list
   * Modified server status map to String, Status; doing translation in scoreboard now
-  
+* 0.7 - John Moe - 5 Jan 2019
+  * Changed Map.forEachEntry out for Map.forEach
+  * Fixed scoreboard state order and colors
