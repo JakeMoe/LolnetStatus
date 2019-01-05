@@ -20,3 +20,7 @@ Plugin to show server status in a scoreboard while players are in the lobbies
 * 0.5 - John Moe - 4 Jan 2019
   * Added space into scoreboard text
   * Added default "UNKNOWN" status if server hasn't reported yet
+* 0.6 - John Moe - 5 Jan 2019
+  * Filtered out lobbies from server list
+  * Modified server status map to String, Status; doing translation in scoreboard now
+  

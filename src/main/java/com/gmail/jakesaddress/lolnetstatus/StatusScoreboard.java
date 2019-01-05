@@ -8,6 +8,7 @@ import org.spongepowered.api.scoreboard.displayslot.DisplaySlots;
 import org.spongepowered.api.scoreboard.objective.Objective;
 import org.spongepowered.api.scoreboard.objective.displaymode.ObjectiveDisplayModes;
 import org.spongepowered.api.text.Text;
+import org.spongepowered.api.text.format.TextColor;
 import org.spongepowered.api.text.format.TextColors;
 
 import java.util.concurrent.ConcurrentHashMap;
@@ -45,8 +46,38 @@ class StatusScoreboard {
   void updateAll() {
     objective.getScores().values().forEach(objective::removeScore);
     Main.getServerNames().forEachEntry(1L, (ConcurrentHashMap.Entry<String, String> e) -> {
-      String status = Main.getServerStatuses().getOrDefault(e.getKey(), Platform.State.UNKNOWN.getFriendlyName());
-      objective.getOrCreateScore(Text.of(TextColors.GOLD, e.getValue(), TextColors.WHITE, ": ", status)).setScore(0);
+
+      Platform.State status = Main.getServerStatuses().getOrDefault(e.getKey(), Platform.State.UNKNOWN);
+      TextColor statusColor;
+
+      switch (status) {
+        case GAME_STOPPED:
+        case GAME_STOPPING:
+        case JVM_STOPPED:
+        case SERVER_STOPPED:
+        case SERVER_STOPPING:
+          statusColor = TextColors.RED;
+          break;
+        case CONSTRUCTION:
+        case INITIALIZATION:
+        case LOAD_COMPLETE:
+        case POST_INITIALIZATION:
+        case PRE_INITIALIZATION:
+        case SERVER_ABOUT_TO_START:
+        case SERVER_STARTED:
+        case SERVER_STARTING:
+          statusColor = TextColors.YELLOW;
+          break;
+        case JVM_STARTED:
+          statusColor = TextColors.GREEN;
+          break;
+        case UNKNOWN:
+        default:
+          statusColor = TextColors.WHITE;
+          break;
+      }
+
+      objective.getOrCreateScore(Text.of(TextColors.GOLD, e.getValue(), statusColor, ": ", status.getFriendlyName())).setScore(0);
     });
 
   }

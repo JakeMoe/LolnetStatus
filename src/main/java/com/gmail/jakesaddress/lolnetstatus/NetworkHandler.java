@@ -21,7 +21,8 @@ public class NetworkHandler extends AbstractNetworkHandler {
   public void handleList(ListPacket packet) {
     Main.getInstance().getLogger().info("Received ListPacket from {} containing {} servers", packet.getSender(), packet.getServers().size());
     packet.getServers().forEach((key, value) -> {
-      if (key.toLowerCase().startsWith("sponge")) {
+      if (key.toLowerCase().startsWith("sponge") &&
+          !key.toLowerCase().contains("lobby")) {
         Main.setServerName(key, value);
       }
     });
@@ -41,8 +42,9 @@ public class NetworkHandler extends AbstractNetworkHandler {
   @Override
   public void handleState(StatePacket packet) {
     Main.getInstance().getLogger().info("Received StatePacket from {}", packet.getSender());
-    if (packet.getSender().toLowerCase().startsWith("sponge")) {
-      Main.setStatus(packet.getSender(), packet.getState().getFriendlyName());
+    if (packet.getSender().toLowerCase().startsWith("sponge") &&
+        !packet.getSender().toLowerCase().contains("lobby")) {
+      Main.setStatus(packet.getSender(), packet.getState());
     }
     Main.getStatusScoreboard().updateAll();
   }

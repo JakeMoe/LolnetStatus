@@ -1,6 +1,7 @@
 package com.gmail.jakesaddress.lolnetstatus;
 
 import com.google.inject.Inject;
+import nz.co.lolnet.servermanager.api.Platform;
 import nz.co.lolnet.servermanager.api.ServerManager;
 import nz.co.lolnet.servermanager.api.network.packet.ListPacket;
 import org.slf4j.Logger;
@@ -17,15 +18,15 @@ import java.util.concurrent.ConcurrentHashMap;
         description = "Server status scoreboard plugin",
         id = "lolnetstatus",
         name = "Lolnet Status",
-        version = "0.4")
+        version = "0.6")
 public class Main {
 
   private static final String project = "LolnetStatus";
-  private static final String version = "0.4";
+  private static final String version = "0.6";
 
   private static Main instance;
   private static ConcurrentHashMap<String, String> serverNames;
-  private static ConcurrentHashMap<String, String> serverStatuses;
+  private static ConcurrentHashMap<String, Platform.State> serverStatuses;
   private static StatusScoreboard statusScoreboard;
 
   @Inject
@@ -66,7 +67,7 @@ public class Main {
     return serverNames;
   }
 
-  static ConcurrentHashMap<String, String> getServerStatuses() {
+  static ConcurrentHashMap<String, Platform.State> getServerStatuses() {
     return serverStatuses;
   }
 
@@ -78,7 +79,7 @@ public class Main {
     serverNames.put(id, displayName);
   }
 
-  static void setStatus(String id, String status) {
+  static void setStatus(String id, Platform.State status) {
     serverStatuses.put(id, status);
   }
 
