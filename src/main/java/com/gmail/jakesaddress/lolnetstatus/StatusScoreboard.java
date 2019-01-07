@@ -49,13 +49,6 @@ class StatusScoreboard {
       TextColor statusColor;
 
       switch (status) {
-        case SERVER_STOPPING:
-        case SERVER_STOPPED:
-        case GAME_STOPPING:
-        case GAME_STOPPED:
-        case JVM_STOPPED:
-          statusColor = TextColors.RED;
-          break;
         case JVM_STARTED:
         case CONSTRUCTION:
         case PRE_INITIALIZATION:
@@ -71,13 +64,19 @@ class StatusScoreboard {
         case SERVER_STARTED:
           statusColor = TextColors.GREEN;
           break;
+        case SERVER_STOPPING:
+        case SERVER_STOPPED:
+        case JVM_STOPPED:
+          statusColor = TextColors.RED;
+          break;
+        case FROZEN:
         case UNKNOWN:
         default:
           statusColor = TextColors.WHITE;
           break;
       }
 
-      objective.getOrCreateScore(Text.of(TextColors.GOLD, value, statusColor, ": ", status.getFriendlyName())).setScore(0);
+      objective.getOrCreateScore(Text.of(TextColors.GOLD, value, TextColors.WHITE, ": ", statusColor, status.getFriendlyName())).setScore(0);
 
     });
 

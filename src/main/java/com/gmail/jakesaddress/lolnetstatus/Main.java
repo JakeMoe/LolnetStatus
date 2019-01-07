@@ -18,11 +18,11 @@ import java.util.concurrent.ConcurrentHashMap;
         description = "Server status scoreboard plugin",
         id = "lolnetstatus",
         name = "Lolnet Status",
-        version = "0.6")
+        version = "0.8")
 public class Main {
 
   private static final String project = "LolnetStatus";
-  private static final String version = "0.6";
+  private static final String version = "0.8";
 
   private static Main instance;
   private static ConcurrentHashMap<String, String> serverNames;
@@ -52,7 +52,7 @@ public class Main {
     logger.info("Created and assigned StatusScoreboard");
     ServerManager.getInstance().registerNetworkHandler(NetworkHandler.class);
     logger.info("Registered NetworkHandler with ServerManager");
-    ServerManager.getInstance().sendRequest(new ListPacket());
+    ServerManager.getInstance().sendRequest(new ListPacket.Full());
   }
 
   static Main getInstance() {
