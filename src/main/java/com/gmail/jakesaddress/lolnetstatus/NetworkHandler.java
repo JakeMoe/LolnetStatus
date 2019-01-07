@@ -1,5 +1,6 @@
 package com.gmail.jakesaddress.lolnetstatus;
 
+import nz.co.lolnet.servermanager.api.Platform;
 import nz.co.lolnet.servermanager.api.ServerManager;
 import nz.co.lolnet.servermanager.api.data.Setting;
 import nz.co.lolnet.servermanager.api.network.AbstractNetworkHandler;
@@ -18,14 +19,16 @@ public class NetworkHandler extends AbstractNetworkHandler {
   }
 
   @Override
-  public void handleList(ListPacket packet) {
-    Main.getInstance().getLogger().info("Received ListPacket from {} containing {} servers", packet.getSender(), packet.getServers().size());
-    packet.getServers().forEach((key, value) -> {
-      if (key.toLowerCase().startsWith("sponge") &&
-          !key.toLowerCase().contains("lobby")) {
-        Main.setServerName(key, value);
+  public void handleListFull(ListPacket.Full packet) {
+    Main.getInstance().getLogger().info("Received ListPacket from {} containing {} servers", packet.getSender(), packet.getImplementations().size());
+    packet.getImplementations().forEach((key, value) -> {
+      if (key.getType() == Platform.Type.SPONGE && !key.getName().toLowerCase().startsWith("lobby")) {
+        Main.setServerName(key.getId(), key.getName());
+        Main.setStatus(key.getId(), value.getState());
       }
     });
+    
+    Main.getStatusScoreboard().updateAll();
   }
 
   @Override
@@ -41,12 +44,13 @@ public class NetworkHandler extends AbstractNetworkHandler {
 
   @Override
   public void handleState(StatePacket packet) {
-    Main.getInstance().getLogger().info("Received StatePacket from {}", packet.getSender());
-    if (packet.getSender().toLowerCase().startsWith("sponge") &&
-        !packet.getSender().toLowerCase().contains("lobby")) {
+    if (Main.getServerNames().containsKey(packet.getSender())) {
+      Main.getInstance().getLogger().info("Received StatePacket from {}", packet.getSender());
       Main.setStatus(packet.getSender(), packet.getState());
+      Main.getStatusScoreboard().updateAll();
+    } else {
+      Main.getInstance().getLogger().info("Received StatePacket from unknown server {}", packet.getSender());
     }
-    Main.getStatusScoreboard().updateAll();
   }
 
 }
