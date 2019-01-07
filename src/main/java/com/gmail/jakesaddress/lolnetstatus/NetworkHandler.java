@@ -8,6 +8,7 @@ import nz.co.lolnet.servermanager.api.network.Packet;
 import nz.co.lolnet.servermanager.api.network.packet.ListPacket;
 import nz.co.lolnet.servermanager.api.network.packet.SettingPacket;
 import nz.co.lolnet.servermanager.api.network.packet.StatePacket;
+import org.apache.commons.lang3.ObjectUtils;
 
 public class NetworkHandler extends AbstractNetworkHandler {
 
@@ -24,7 +25,7 @@ public class NetworkHandler extends AbstractNetworkHandler {
     packet.getImplementations().forEach((key, value) -> {
       if (key.getType() == Platform.Type.SPONGE && !key.getName().toLowerCase().startsWith("lobby")) {
         Main.setServerName(key.getId(), key.getName());
-        Main.setStatus(key.getId(), value.getState());
+        Main.setStatus(key.getId(), ObjectUtils.defaultIfNull(value.getState(), Platform.State.UNKNOWN));
       }
     });
     

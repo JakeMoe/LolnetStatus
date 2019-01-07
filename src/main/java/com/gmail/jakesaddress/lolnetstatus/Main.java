@@ -18,7 +18,7 @@ import java.util.concurrent.ConcurrentHashMap;
         description = "Server status scoreboard plugin",
         id = "lolnetstatus",
         name = "Lolnet Status",
-        version = "0.6")
+        version = "0.8")
 public class Main {
 
   private static final String project = "LolnetStatus";
