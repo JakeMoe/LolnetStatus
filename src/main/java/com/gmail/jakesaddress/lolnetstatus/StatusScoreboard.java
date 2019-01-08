@@ -79,7 +79,7 @@ class StatusScoreboard {
           break;
         case FROZEN:
           score = 3;
-          statusColor = TextColors.BLUE;
+          statusColor = TextColors.AQUA;
           break;
         case UNKNOWN:
         default:
