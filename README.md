@@ -2,7 +2,23 @@
 
 ## Description
 
-Plugin to show server status in a scoreboard while players are in the lobbies
+Plugin to show server status in a scoreboard while players are in the lobbies.
+
+This plugin is designed to run on a Sponge server, and utilizes the ServerManager plugin to get server information.
+
+## Dependencies
+
+LolnetStatus requires ServerManager by [LXGaming](https://github.com/LXGaming) to acquire server status information.
+
+## Installation and configuration
+
+Simply copy the compiled jar file into your server's mods folder, and away you go. No configuration required.
+
+## Copyright
+
+LolnetStatus is available under the terms of the GPL v3 license.
+
+![GPLv3 Logo](gplv3-88x31.png)
 
 ## Version History
 
@@ -28,11 +44,15 @@ Plugin to show server status in a scoreboard while players are in the lobbies
   * Fixed scoreboard state order and colors
 * 0.8 - Alex Thomson - 7 Jan 2019
   * Updated for ServerManager v2.1.0
-* 0.9 - John Moe - 8 jan 2019
+* 0.9 - John Moe - 8 Jan 2019
   * Updated ServerManager to v2.1.1
   * Added new CONNECTED and DISCONNECTED status to scoreboard
   * Added scores to each status to group servers together
-* 0.10 - Alex Thomson - 7 Jan 2019
+* 0.10 - Alex Thomson - 9 Jan 2019
   * Remove debug messages from Listener
   * Remove scoreboard on Server Shutdown
   * Tweak colors and remove score order
+* 0.11 - John Moe - 9 Jan 2019
+  * Added GPLv3 license
+  * Fixed up this README.md
+  * Added beginning of command framework
