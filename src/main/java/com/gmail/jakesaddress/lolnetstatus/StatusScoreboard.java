@@ -10,6 +10,7 @@ import org.spongepowered.api.scoreboard.objective.displaymode.ObjectiveDisplayMo
 import org.spongepowered.api.text.Text;
 import org.spongepowered.api.text.format.TextColor;
 import org.spongepowered.api.text.format.TextColors;
+import org.spongepowered.api.text.format.TextStyles;
 
 class StatusScoreboard {
 
@@ -29,7 +30,7 @@ class StatusScoreboard {
     if (objective == null) {
       objective = Objective.builder()
         .criterion(Criteria.DUMMY)
-        .displayName(Text.of(TextColors.GOLD, "Lolnet Server Status"))
+        .displayName(Text.of(TextColors.WHITE, TextStyles.BOLD, "Server Status"))
         .name(statusObjectiveName)
         .objectiveDisplayMode(ObjectiveDisplayModes.INTEGER)
         .build();
@@ -55,9 +56,9 @@ class StatusScoreboard {
         case PRE_INITIALIZATION:
         case INITIALIZATION:
         case POST_INITIALIZATION:
-          score = 1;
-          statusColor = TextColors.GOLD;
-          break;
+          //score = 1;
+          //statusColor = TextColors.GOLD;
+          //break;
         case CONNECTED:
         case LOAD_COMPLETE:
         case SERVER_ABOUT_TO_START:
@@ -78,7 +79,7 @@ class StatusScoreboard {
           break;
         case FROZEN:
           score = 3;
-          statusColor = TextColors.BLUE;
+          statusColor = TextColors.AQUA;
           break;
         case UNKNOWN:
         default:
@@ -87,10 +88,19 @@ class StatusScoreboard {
           break;
       }
 
-      objective.getOrCreateScore(Text.of(TextColors.GOLD, value, TextColors.WHITE, ": ", statusColor, status.getFriendlyName())).setScore(score);
+      objective.getOrCreateScore(Text.of(TextColors.GOLD, value, TextColors.WHITE, ": ", statusColor, status.getFriendlyName())).setScore(0);
 
     });
 
+  }
+  
+  void remove() {
+    if (scoreboard == null || objective == null) {
+      return;
+    }
+    
+    objective.getScores().values().forEach(objective::removeScore);
+    scoreboard.removeObjective(objective);
   }
 
   Scoreboard getScoreboard() {

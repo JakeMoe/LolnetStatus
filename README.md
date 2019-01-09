@@ -32,3 +32,7 @@ Plugin to show server status in a scoreboard while players are in the lobbies
   * Updated ServerManager to v2.1.1
   * Added new CONNECTED and DISCONNECTED status to scoreboard
   * Added scores to each status to group servers together
+* 0.10 - Alex Thomson - 7 Jan 2019
+  * Remove debug messages from Listener
+  * Remove scoreboard on Server Shutdown
+  * Tweak colors and remove score order

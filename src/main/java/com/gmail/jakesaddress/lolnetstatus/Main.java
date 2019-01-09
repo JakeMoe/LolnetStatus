@@ -10,6 +10,8 @@ import org.spongepowered.api.event.Listener;
 import org.spongepowered.api.event.game.state.GameConstructionEvent;
 import org.spongepowered.api.event.game.state.GameInitializationEvent;
 import org.spongepowered.api.event.game.state.GameStartedServerEvent;
+import org.spongepowered.api.event.game.state.GameStoppingEvent;
+import org.spongepowered.api.event.game.state.GameStoppingServerEvent;
 import org.spongepowered.api.plugin.Plugin;
 
 import java.util.concurrent.ConcurrentHashMap;
@@ -18,11 +20,11 @@ import java.util.concurrent.ConcurrentHashMap;
         description = "Server status scoreboard plugin",
         id = "lolnetstatus",
         name = "Lolnet Status",
-        version = "0.9")
+        version = "0.10")
 public class Main {
 
   private static final String project = "LolnetStatus";
-  private static final String version = "0.9";
+  private static final String version = "0.10";
 
   private static Main instance;
   private static ConcurrentHashMap<String, String> serverNames;
@@ -53,6 +55,13 @@ public class Main {
     ServerManager.getInstance().registerNetworkHandler(NetworkHandler.class);
     logger.info("Registered NetworkHandler with ServerManager");
     ServerManager.getInstance().sendRequest(new ListPacket.Full());
+  }
+  
+  @Listener
+  public void onGameStoppingServer(GameStoppingServerEvent event) {
+    if (statusScoreboard != null) {
+      statusScoreboard.remove();
+    }
   }
 
   static Main getInstance() {
