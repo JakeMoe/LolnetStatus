@@ -23,6 +23,8 @@ import nz.co.lolnet.servermanager.api.ServerManager;
 import nz.co.lolnet.servermanager.api.network.packet.ListPacket;
 import org.slf4j.Logger;
 import org.spongepowered.api.Sponge;
+import org.spongepowered.api.command.args.GenericArguments;
+import org.spongepowered.api.command.spec.CommandExecutor;
 import org.spongepowered.api.command.spec.CommandSpec;
 import org.spongepowered.api.event.Listener;
 import org.spongepowered.api.event.game.state.GameConstructionEvent;
@@ -76,6 +78,7 @@ public class Main {
     ServerManager.getInstance().sendRequest(new ListPacket.Full());
 
     CommandSpec commandSpec = CommandSpec.builder()
+      .arguments(GenericArguments.onlyOne(GenericArguments.bool(Text.of("keyShowScoreboard"))))
       .description(Text.of("LolnetStatus command"))
       .executor(new Commands())
       .permission("lolnetstatus.command")
