@@ -31,7 +31,7 @@ LolnetStatus is available under the terms of the GPL v3 license.
   * Added NetworkHandler for ServerManager
   * Finished up main plugin logic to test base functionality
 * 0.4 - John Moe - 4 Jan 2019
-  * Fixed NetworkHander to actually do something with state info
+  * Fixed NetworkHandler to actually do something with state info
   * Updated scoreboard to include server state, and colourise the text
 * 0.5 - John Moe - 4 Jan 2019
   * Added space into scoreboard text
@@ -55,4 +55,4 @@ LolnetStatus is available under the terms of the GPL v3 license.
 * 0.11 - John Moe - 9 Jan 2019
   * Added GPLv3 license
   * Fixed up this README.md
-  * Added beginning of command framework
+  * Initial pass of command code written

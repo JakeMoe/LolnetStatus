@@ -23,14 +23,23 @@ import org.spongepowered.api.command.CommandSource;
 import org.spongepowered.api.command.args.CommandContext;
 import org.spongepowered.api.command.spec.CommandExecutor;
 import org.spongepowered.api.entity.living.player.Player;
+import org.spongepowered.api.scoreboard.Scoreboard;
 import org.spongepowered.api.text.Text;
+
+import java.util.Optional;
 
 public class Commands implements CommandExecutor {
 
   @Override
   public CommandResult execute(CommandSource src, CommandContext args) throws CommandException {
     if (src instanceof Player) {
-      boolean showScoreboard = args.<boolean>getOne("keyShowScoreboard").get();
+      Player player = (Player) src;
+      Optional<Boolean> showScoreboard = args.getOne("keyShowScoreboard");
+      if ((player.getScoreboard() != Main.getStatusScoreboard().getScoreboard()) && showScoreboard.orElse(false)) {
+        player.setScoreboard(Main.getStatusScoreboard().getScoreboard());
+      } else if ((player.getScoreboard() == Main.getStatusScoreboard().getScoreboard()) && !showScoreboard.orElse(false)) {
+        player.setScoreboard(Scoreboard.builder().build());
+      }
       return CommandResult.success();
     } else {
       src.sendMessage(Text.of("This command must be run by a player"));
