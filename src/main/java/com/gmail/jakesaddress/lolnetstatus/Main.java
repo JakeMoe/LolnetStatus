@@ -24,13 +24,11 @@ import nz.co.lolnet.servermanager.api.network.packet.ListPacket;
 import org.slf4j.Logger;
 import org.spongepowered.api.Sponge;
 import org.spongepowered.api.command.args.GenericArguments;
-import org.spongepowered.api.command.spec.CommandExecutor;
 import org.spongepowered.api.command.spec.CommandSpec;
 import org.spongepowered.api.event.Listener;
 import org.spongepowered.api.event.game.state.GameConstructionEvent;
 import org.spongepowered.api.event.game.state.GameInitializationEvent;
 import org.spongepowered.api.event.game.state.GameStartedServerEvent;
-import org.spongepowered.api.event.game.state.GameStoppingEvent;
 import org.spongepowered.api.event.game.state.GameStoppingServerEvent;
 import org.spongepowered.api.plugin.Plugin;
 import org.spongepowered.api.text.Text;
@@ -41,7 +39,7 @@ import java.util.concurrent.ConcurrentHashMap;
         description = "Server status scoreboard plugin",
         id = "lolnetstatus",
         name = "Lolnet Status",
-        version = "0.11")
+        version = "0.12")
 public class Main {
 
   private static final String project = "LolnetStatus";

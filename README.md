@@ -56,3 +56,5 @@ LolnetStatus is available under the terms of the GPL v3 license.
   * Added GPLv3 license
   * Fixed up this README.md
   * Initial pass of command code written
+* 0.12 - John Moe - 12 Jan 2019
+  * Fixed score name length issue
