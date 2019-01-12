@@ -58,3 +58,5 @@ LolnetStatus is available under the terms of the GPL v3 license.
   * Initial pass of command code written
 * 0.12 - John Moe - 12 Jan 2019
   * Fixed score name length issue
+* 0.13 - John Moe - 12 Jan 2019
+  * Additional score name length fixes

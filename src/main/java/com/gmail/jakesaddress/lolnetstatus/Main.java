@@ -39,11 +39,11 @@ import java.util.concurrent.ConcurrentHashMap;
         description = "Server status scoreboard plugin",
         id = "lolnetstatus",
         name = "Lolnet Status",
-        version = "0.12")
+        version = "0.13")
 public class Main {
 
   private static final String project = "LolnetStatus";
-  private static final String version = "0.11";
+  private static final String version = "0.13";
 
   private static Main instance;
   private static ConcurrentHashMap<String, String> serverNames;
