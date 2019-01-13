@@ -60,3 +60,5 @@ LolnetStatus is available under the terms of the GPL v3 license.
   * Fixed score name length issue
 * 0.13 - John Moe - 12 Jan 2019
   * Additional score name length fixes
+* 0.14 - John Moe - 13 Jan 2019
+  * Accounted for colour codes taking up two chars in Text

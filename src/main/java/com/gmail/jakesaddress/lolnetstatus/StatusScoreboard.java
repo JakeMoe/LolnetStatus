@@ -97,8 +97,8 @@ class StatusScoreboard {
       }
 
       String statusString = status.getFriendlyName();
-      if (statusString.length() > 35 - value.length()) {
-        statusString = statusString.substring(0, 35 - value.length()) + "...";
+      if (statusString.length() > 29 - value.length()) {
+        statusString = statusString.substring(0, 29 - value.length()) + "...";
       }
 
       objective.getOrCreateScore(Text.of(TextColors.GOLD, value, TextColors.WHITE, ": ", statusColor, statusString)).setScore(0);
