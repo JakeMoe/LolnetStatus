@@ -29,7 +29,7 @@ import org.spongepowered.api.text.format.TextColor;
 import org.spongepowered.api.text.format.TextColors;
 import org.spongepowered.api.text.format.TextStyles;
 
-class StatusScoreboard {
+public class StatusScoreboard {
 
   private static final String statusObjectiveName = "ServerStatus";
   private Scoreboard scoreboard;
@@ -116,7 +116,7 @@ class StatusScoreboard {
     scoreboard.removeObjective(objective);
   }
 
-  Scoreboard getScoreboard() {
+  public Scoreboard getScoreboard() {
     return scoreboard;
   }
 

@@ -62,3 +62,7 @@ LolnetStatus is available under the terms of the GPL v3 license.
   * Additional score name length fixes
 * 0.14 - John Moe - 13 Jan 2019
   * Accounted for colour codes taking up two chars in Text
+* 0.15 - John Moe - 18 Mar 2019
+  * Split out commands to /ss show and /ss hide
+  * Added command to reload server list: /ss reload
+  

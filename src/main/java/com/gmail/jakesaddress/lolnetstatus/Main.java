@@ -17,13 +17,15 @@
 
 package com.gmail.jakesaddress.lolnetstatus;
 
+import com.gmail.jakesaddress.lolnetstatus.Commands.HideCommand;
+import com.gmail.jakesaddress.lolnetstatus.Commands.ReloadCommand;
+import com.gmail.jakesaddress.lolnetstatus.Commands.ShowCommand;
 import com.google.inject.Inject;
 import nz.co.lolnet.servermanager.api.Platform;
 import nz.co.lolnet.servermanager.api.ServerManager;
 import nz.co.lolnet.servermanager.api.network.packet.ListPacket;
 import org.slf4j.Logger;
 import org.spongepowered.api.Sponge;
-import org.spongepowered.api.command.args.GenericArguments;
 import org.spongepowered.api.command.spec.CommandSpec;
 import org.spongepowered.api.event.Listener;
 import org.spongepowered.api.event.game.state.GameConstructionEvent;
@@ -39,11 +41,11 @@ import java.util.concurrent.ConcurrentHashMap;
         description = "Server status scoreboard plugin",
         id = "lolnetstatus",
         name = "Lolnet Status",
-        version = "0.14")
+        version = "0.15")
 public class Main {
 
   private static final String project = "LolnetStatus";
-  private static final String version = "0.14";
+  private static final String version = "0.15";
 
   private static Main instance;
   private static ConcurrentHashMap<String, String> serverNames;
@@ -67,22 +69,41 @@ public class Main {
 
   @Listener
   public void onServerStarted(GameStartedServerEvent event) {
-    serverNames = new ConcurrentHashMap<>();
-    serverStatuses = new ConcurrentHashMap<>();
-    statusScoreboard = new StatusScoreboard();
-    logger.info("Created and assigned StatusScoreboard");
+
     ServerManager.getInstance().registerNetworkHandler(NetworkHandler.class);
     logger.info("Registered NetworkHandler with ServerManager");
-    ServerManager.getInstance().sendRequest(new ListPacket.Full());
+
+    statusScoreboard = new StatusScoreboard();
+
+    initializeScoreboard();
+
+    CommandSpec hideCommandSpec = CommandSpec.builder()
+      .description(Text.of("Hides the status board"))
+      .executor(new HideCommand())
+      .permission("lolnetstatus.command.hide")
+      .build();
+
+    CommandSpec reloadCommandSpec = CommandSpec.builder()
+      .description(Text.of("Reloads the status board"))
+      .executor(new ReloadCommand())
+      .permission("lolnetstatus.command.reload")
+      .build();
+
+    CommandSpec showCommandSpec = CommandSpec.builder()
+      .description(Text.of("Shows the status board"))
+      .executor(new ShowCommand())
+      .permission("lolnetstatus.command.show")
+      .build();
 
     CommandSpec commandSpec = CommandSpec.builder()
-      .arguments(GenericArguments.onlyOne(GenericArguments.bool(Text.of("keyShowScoreboard"))))
       .description(Text.of("LolnetStatus command"))
-      .executor(new Commands())
+      .child(hideCommandSpec, "hide")
+      .child(reloadCommandSpec, "reload")
+      .child(showCommandSpec, "show")
       .permission("lolnetstatus.command")
       .build();
 
-    Sponge.getCommandManager().register(this, commandSpec, "lolnetstatus", "ls");
+    Sponge.getCommandManager().register(this, commandSpec, "lolnetstatus", "ss");
 
   }
   
@@ -93,7 +114,15 @@ public class Main {
     }
   }
 
-  static Main getInstance() {
+  public void initializeScoreboard() {
+    serverNames = new ConcurrentHashMap<>();
+    serverStatuses = new ConcurrentHashMap<>();
+    logger.info("Created and assigned StatusScoreboard");
+    ServerManager.getInstance().sendRequest(new ListPacket.Full());
+    logger.info("Requested ListPack.Full from ServerManager");
+  }
+
+  public static Main getInstance() {
     return instance;
   }
 
@@ -109,7 +138,7 @@ public class Main {
     return serverStatuses;
   }
 
-  static StatusScoreboard getStatusScoreboard() {
+  public static StatusScoreboard getStatusScoreboard() {
     return statusScoreboard;
   }
 
