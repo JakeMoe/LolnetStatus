@@ -65,4 +65,5 @@ LolnetStatus is available under the terms of the GPL v3 license.
 * 0.15 - John Moe - 18 Mar 2019
   * Split out commands to /ss show and /ss hide
   * Added command to reload server list: /ss reload
-  
+* 0.16 - John Moe - 19 Mar 2019
+  * Modified code to clear variables rather than recreate each time /ss clear is called
