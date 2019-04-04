@@ -37,15 +37,19 @@ import org.spongepowered.api.text.Text;
 
 import java.util.concurrent.ConcurrentHashMap;
 
-@Plugin(authors = "Cluracan",
-        description = "Server status scoreboard plugin",
-        id = "lolnetstatus",
-        name = "Lolnet Status",
-        version = "0.16")
+@Plugin(authors     = Main.authors,
+        description = Main.description,
+        id          = Main.id,
+        name        = Main.name,
+        version     = Main.version)
 public class Main {
 
-  private static final String project = "LolnetStatus";
-  private static final String version = "0.16";
+  static final String authors = "Cluracan, LX_Gaming";
+  static final String description = "Server status scoreboard plugin";
+  static final String id = "lolnetstatus";
+  static final String name = "Lolnet Status";
+  static final String project = "LolnetStatus";
+  static final String version = "0.17";
 
   private static Main instance;
   private static ConcurrentHashMap<String, String> serverNames;
@@ -98,11 +102,18 @@ public class Main {
       .permission("lolnetstatus.command.show")
       .build();
 
+    CommandSpec toggleCommandSpec = CommandSpec.builder()
+      .description(Text.of("Toggles the status board"))
+      .executor(new ShowCommand())
+      .permission("lolnetstatus.command.toggle")
+      .build();
+
     CommandSpec commandSpec = CommandSpec.builder()
       .description(Text.of("LolnetStatus command"))
       .child(hideCommandSpec, "hide")
       .child(reloadCommandSpec, "reload")
       .child(showCommandSpec, "show")
+      .child(toggleCommandSpec, "toggle")
       .permission("lolnetstatus.command")
       .build();
 
