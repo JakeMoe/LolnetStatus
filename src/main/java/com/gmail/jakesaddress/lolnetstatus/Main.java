@@ -49,7 +49,7 @@ public class Main {
   static final String id = "lolnetstatus";
   static final String name = "Lolnet Status";
   static final String project = "LolnetStatus";
-  static final String version = "0.17";
+  static final String version = "0.18";
 
   private static Main instance;
   private static ConcurrentHashMap<String, String> serverNames;

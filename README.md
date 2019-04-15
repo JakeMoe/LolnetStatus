@@ -69,3 +69,5 @@ LolnetStatus is available under the terms of the GPL v3 license.
   * Modified code to clear variables rather than recreate each time /ss clear is called
 * 0.17 - John Moe - 4 Apr 2019
   * Added toggle command; will eventually replace show and hide commands
+* 0.18 - John Moe - 15 Apr 2019
+  * Changed ServerManager repo from api to repo
