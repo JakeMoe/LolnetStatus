@@ -71,3 +71,8 @@ LolnetStatus is available under the terms of the GPL v3 license.
   * Added toggle command; will eventually replace show and hide commands
 * 0.18 - John Moe - 15 Apr 2019
   * Changed ServerManager repo from api to repo
+* 0.19 - John Moe - 29 Jun 2019
+  * Updated ServerManager to 2.1.9
+    * Updated package references to new name
+    * Updated maven repo to new repo url
+    * Updated getFriendlyName to getName to match change in ServerManager

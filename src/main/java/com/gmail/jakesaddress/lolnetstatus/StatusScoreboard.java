@@ -17,7 +17,7 @@
 
 package com.gmail.jakesaddress.lolnetstatus;
 
-import nz.co.lolnet.servermanager.api.Platform;
+import io.github.lxgaming.servermanager.api.Platform;
 import org.spongepowered.api.Sponge;
 import org.spongepowered.api.scoreboard.Scoreboard;
 import org.spongepowered.api.scoreboard.critieria.Criteria;
@@ -96,7 +96,7 @@ public class StatusScoreboard {
           break;
       }
 
-      String statusString = status.getFriendlyName();
+      String statusString = status.getName();
       if (statusString.length() > 29 - value.length()) {
         statusString = statusString.substring(0, 29 - value.length()) + "...";
       }

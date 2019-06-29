@@ -21,9 +21,9 @@ import com.gmail.jakesaddress.lolnetstatus.Commands.HideCommand;
 import com.gmail.jakesaddress.lolnetstatus.Commands.ReloadCommand;
 import com.gmail.jakesaddress.lolnetstatus.Commands.ShowCommand;
 import com.google.inject.Inject;
-import nz.co.lolnet.servermanager.api.Platform;
-import nz.co.lolnet.servermanager.api.ServerManager;
-import nz.co.lolnet.servermanager.api.network.packet.ListPacket;
+import io.github.lxgaming.servermanager.api.Platform;
+import io.github.lxgaming.servermanager.api.ServerManager;
+import io.github.lxgaming.servermanager.api.network.packet.ListPacket;
 import org.slf4j.Logger;
 import org.spongepowered.api.Sponge;
 import org.spongepowered.api.command.spec.CommandSpec;
@@ -49,7 +49,7 @@ public class Main {
   static final String id = "lolnetstatus";
   static final String name = "Lolnet Status";
   static final String project = "LolnetStatus";
-  static final String version = "0.18";
+  static final String version = "0.19";
 
   private static Main instance;
   private static ConcurrentHashMap<String, String> serverNames;

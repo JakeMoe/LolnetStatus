@@ -17,14 +17,14 @@
 
 package com.gmail.jakesaddress.lolnetstatus;
 
-import nz.co.lolnet.servermanager.api.Platform;
-import nz.co.lolnet.servermanager.api.ServerManager;
-import nz.co.lolnet.servermanager.api.data.Setting;
-import nz.co.lolnet.servermanager.api.network.AbstractNetworkHandler;
-import nz.co.lolnet.servermanager.api.network.Packet;
-import nz.co.lolnet.servermanager.api.network.packet.ListPacket;
-import nz.co.lolnet.servermanager.api.network.packet.SettingPacket;
-import nz.co.lolnet.servermanager.api.network.packet.StatePacket;
+import io.github.lxgaming.servermanager.api.Platform;
+import io.github.lxgaming.servermanager.api.ServerManager;
+import io.github.lxgaming.servermanager.api.data.Setting;
+import io.github.lxgaming.servermanager.api.network.AbstractNetworkHandler;
+import io.github.lxgaming.servermanager.api.network.Packet;
+import io.github.lxgaming.servermanager.api.network.packet.ListPacket;
+import io.github.lxgaming.servermanager.api.network.packet.SettingPacket;
+import io.github.lxgaming.servermanager.api.network.packet.StatePacket;
 import org.apache.commons.lang3.ObjectUtils;
 
 public class NetworkHandler extends AbstractNetworkHandler {

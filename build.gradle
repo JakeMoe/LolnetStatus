@@ -24,7 +24,7 @@ compileJava.options.encoding = 'UTF-8'
 
 description = 'Lolnet Status scoreboard plugin'
 group = 'com.gmail.jakesaddress.lolnetstatus'
-version = '0.18'
+version = '0.19'
 
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
@@ -32,11 +32,11 @@ targetCompatibility = 1.8
 repositories {
   jcenter()
   maven {
-    url 'https://repo.lolnet.co.nz/maven'
+    url 'https://dl.bintray.com/lxgaming/maven/'
   }
 }
 
 dependencies {
   compile 'org.spongepowered:spongeapi:7.1.0'
-  compile 'nz.co.lolnet:servermanager-api:2.1.7'
+  compile 'io.github.lxgaming:servermanager-api:2.1.9'
 }
